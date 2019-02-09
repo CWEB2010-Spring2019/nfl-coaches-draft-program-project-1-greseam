@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
+
 namespace project1
 {
     class Program
@@ -8,6 +9,7 @@ namespace project1
         static void Main(string[] args)
         {
             Display display = new Display();
+            display.Welcome();
             display.run();
         }
     }

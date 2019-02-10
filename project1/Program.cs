@@ -11,6 +11,7 @@ namespace project1
             Display display = new Display();
             display.Welcome();
             display.run();
+            
         }
     }
 

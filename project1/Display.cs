@@ -7,6 +7,7 @@ namespace project1
 {
     class Display
     {
+        private int testVal = 0;
         private double budget = 95000000;
         private double totalPrice = 0;
         
@@ -18,7 +19,7 @@ namespace project1
         private double newBudget = 0;
 
         int availableCheck = 0;
-        const int startX = 17;
+        const int startX = 19;
         const int startY = 3;
         const int startY2 = 1;
         const int startY3 = 2;
@@ -288,7 +289,8 @@ namespace project1
             for (int i = 0; i < playerList.Count; i++)
             {
                 Console.SetCursorPosition(1 , 3 + (i / optionsPerLine) * spacingByLine);
-                Console.WriteLine(playerList[0 + (i % 5) * 8].position);
+                Console.WriteLine(playerList[0+((i/5)%8)].position);
+                testVal++;
             }
             Console.ResetColor();
         }
@@ -298,7 +300,7 @@ namespace project1
             Console.ForegroundColor = ConsoleColor.Yellow;
             for (int i = 0; i < playerList.Count; i++)
             {
-                Console.SetCursorPosition(17 + (i % 5) * spacingPerLine, 1);
+                Console.SetCursorPosition(19 + (i % 5) * spacingPerLine, 1);
                 if (playerList[0 + i % 5 * 8].pick == "1")
                 {
                     Console.WriteLine("Best");

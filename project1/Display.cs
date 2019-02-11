@@ -33,7 +33,7 @@ namespace project1
         
         public Display()
         {
-            playerList = JsonConvert.DeserializeObject<List<Player>>(File.ReadAllText(@"playerDataFile.dat"));
+            playerList = JsonConvert.DeserializeObject<List<Player>>(File.ReadAllText(@"playerDataFile.dat")); //uses a JSON file to read in data
         }
         public void run()
         {
@@ -55,13 +55,12 @@ namespace project1
             TitlesX();
             do
             {
-               
-
+               //the Do While was
+                //inspired by someones code i found online
                 for (int i = 0; i < playerList.Count; i++)
                 {
-                    //Titles(2, 17, playerList[i].pick);
                     Console.SetCursorPosition(startX + (i % optionsPerLine) * spacingPerLine,
-                        startY + (i / optionsPerLine) * spacingByLine);
+                        startY + (i / optionsPerLine) * spacingByLine); //console position change, allows to manipulate where text is displayed
                     try
                     {
                         if (i == currentSelection)
@@ -95,7 +94,7 @@ namespace project1
                 extraColums(startY2, playerList[currentSelection].school);
                 extraColums(startY3, playerList[currentSelection].price.ToString("C"));
                 key = Console.ReadKey(true).Key;
-                switch (key)
+                switch (key) 
                 {
                     case ConsoleKey.LeftArrow:
                         {
@@ -141,32 +140,40 @@ namespace project1
                     budgetCheck();
                     runOnce--;
                 }
-                verifyInts.Add(currentSelection);
-                usedOptions.Add(currentSelection);
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("\n\n\t\tYou have selected " + playerList[currentSelection].name + ", has a salary of: " +
-                                  playerList[currentSelection].price.ToString("C")+" from "+playerList[currentSelection].school);
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("\n\t\tYour remaining budget is " + (newBudget).ToString("C") + " and you can pick " +
-                                  (End - 1) + " more players.");
-                Console.ResetColor();
-                Console.WriteLine("\n\nPress 'X' to verify selection\nHit any other key to coninue.\nHit Escape to exit the program.");
-                
-                ConsoleKey Input = Console.ReadKey().Key;
-                if (Input == ConsoleKey.Escape)
+                if (runOnce == 0)
                 {
-                    checkESC();
-                    runOnce--;
-                }
-                else if (Input == ConsoleKey.X)
-                {
-                    verifySelcetion();
-                    runOnce--;
-                }
-                else
-                {
-                    runOnce--;
+                    verifyInts.Add(currentSelection);
+                    usedOptions.Add(currentSelection);
+
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("\n\n\t\tYou have selected " + playerList[currentSelection].name +
+                                      ", has a salary of: " +
+                                      playerList[currentSelection].price.ToString("C") + " from " +
+                                      playerList[currentSelection].school);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("\n\t\tYour remaining budget is " + (newBudget).ToString("C") +
+                                      " and you can pick " +
+                                      (End - 1) + " more players.");
+                    Console.ResetColor();
+                    Console.WriteLine(
+                        "\n\nPress 'X' to verify selection\nHit any other key to coninue.\nHit Escape to exit the program.");
+
+                    ConsoleKey Input = Console.ReadKey().Key;
+                    if (Input == ConsoleKey.Escape)
+                    {
+                        checkESC();
+                        runOnce--;
+                    }
+                    else if (Input == ConsoleKey.X)
+                    {
+                        verifySelcetion();
+                        runOnce--;
+                    }
+                    else
+                    {
+                        runOnce--;
+                    }
                 }
             }
         }
@@ -334,13 +341,18 @@ namespace project1
                 if (tryAgain == ConsoleKey.N)
                 {
                     Console.Clear();
+                    Console.WriteLine("Thank You for using the 2019 NFL draft.\nHave a nice day");
                     End = -1;
                     runOnce--;
                 }
                 else if (tryAgain == ConsoleKey.Y)
                 {
                     Console.Clear();
-                    Console.WriteLine("Thank You for using the 2019 NFL draft.\nHave a nice day");
+                    usedOptions.Clear();
+                    verifyInts.Clear();
+                    budget = 95000000;
+                    newBudget = 0;
+                    totalPrice = 0;
                     End = 5;
                     runOnce--;
                 }

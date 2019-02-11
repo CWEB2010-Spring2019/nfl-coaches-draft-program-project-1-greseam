@@ -51,7 +51,7 @@ namespace project1
         public void DisplayTable()
         {
             Console.Clear();
-            Titles();
+            TitlesY();
             TitlesX();
             do
             {
@@ -89,11 +89,11 @@ namespace project1
                             Console.ForegroundColor = ConsoleColor.Green;
                     }
                     Console.Write(playerList[i].name);
-                    extraColums(startY2, playerList[currentSelection].school);
-                    extraColums(startY3, playerList[currentSelection].price.ToString("C"));
+                  
                     Console.ResetColor();
                 }
-
+                extraColums(startY2, playerList[currentSelection].school);
+                extraColums(startY3, playerList[currentSelection].price.ToString("C"));
                 key = Console.ReadKey(true).Key;
                 switch (key)
                 {
@@ -139,7 +139,10 @@ namespace project1
                 if (newBudget <= 0)
                 {
                     budgetCheck();
+                    runOnce--;
                 }
+                verifyInts.Add(currentSelection);
+                usedOptions.Add(currentSelection);
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\n\n\t\tYou have selected " + playerList[currentSelection].name + ", has a salary of: " +
@@ -149,16 +152,17 @@ namespace project1
                                   (End - 1) + " more players.");
                 Console.ResetColor();
                 Console.WriteLine("\n\nPress 'X' to verify selection\nHit any other key to coninue.\nHit Escape to exit the program.");
-                verifyInts.Add(currentSelection);
-                usedOptions.Add(currentSelection);
+                
                 ConsoleKey Input = Console.ReadKey().Key;
                 if (Input == ConsoleKey.Escape)
                 {
                     checkESC();
+                    runOnce--;
                 }
                 else if (Input == ConsoleKey.X)
                 {
                     verifySelcetion();
+                    runOnce--;
                 }
                 else
                 {
@@ -271,13 +275,13 @@ namespace project1
                 }
             
         }
-        private void Titles()
+        private void TitlesY()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             for (int i = 0; i < playerList.Count; i++)
             {
                 Console.SetCursorPosition(1 , 3 + (i / optionsPerLine) * spacingByLine);
-                Console.WriteLine(playerList[0 + i % 5 * 8].position);
+                Console.WriteLine(playerList[0 + (i % 5) * 8].position);
             }
             Console.ResetColor();
         }
@@ -330,6 +334,7 @@ namespace project1
                 if (tryAgain == ConsoleKey.N)
                 {
                     Console.Clear();
+                    End = -1;
                     runOnce--;
                 }
                 else if (tryAgain == ConsoleKey.Y)
@@ -358,13 +363,13 @@ namespace project1
                 Console.ForegroundColor = ConsoleColor.Green;
                  Console.SetCursorPosition(startX + (i % verifyInts.Count) * spacingPerLine,
                 startY );
-                 Console.WriteLine(playerList[i].name);
+                 Console.WriteLine(playerList[verifyInts[i]].name);
                  Console.SetCursorPosition(startX + (i % verifyInts.Count) * spacingPerLine,
                      startY+1);
-                 Console.WriteLine(playerList[i].school);
+                 Console.WriteLine(playerList[verifyInts[i]].school);
                  Console.SetCursorPosition(startX + (i % verifyInts.Count) * spacingPerLine,
                      startY+2);
-                 Console.WriteLine(playerList[i].price.ToString("C"));
+                 Console.WriteLine(playerList[verifyInts[i]].price.ToString("C"));
                  Console.ResetColor();
                  Console.ForegroundColor = ConsoleColor.Yellow;
                  Console.WriteLine("\n\nYour Remaining budget is " + newBudget.ToString("C"));

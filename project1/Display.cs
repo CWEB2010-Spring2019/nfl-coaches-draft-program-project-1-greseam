@@ -44,7 +44,7 @@ namespace project1
                 End--;
                 if (End == 0)
                 {
-                    runAgain();
+                    verifySelcetion();
                 }
             }
         }
@@ -52,8 +52,6 @@ namespace project1
         public void DisplayTable()
         {
             Console.Clear();
-            TitlesY();
-            TitlesX();
             do
             {
                //the Do While was
@@ -88,12 +86,13 @@ namespace project1
                         if (i == currentSelection)
                             Console.ForegroundColor = ConsoleColor.Green;
                     }
-                    Console.Write(playerList[i].name);
-                  
+                    Console.Write(playerList[(0 + ((i / 5) % 8))+(i % 5 * 8)].name);//(0 + ((currentSelection / 5) % 8))+(currentSelection % 5 * 8)
                     Console.ResetColor();
                 }
-                extraColums(startY2, playerList[currentSelection].school);
-                extraColums(startY3, playerList[currentSelection].price.ToString("C"));
+                extraColums(startY2, playerList[(0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8)].school);
+                extraColums(startY3, playerList[(0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8)].price.ToString("C"));
+                TitlesY();
+                TitlesX();
                 key = Console.ReadKey(true).Key;
                 switch (key) 
                 {
@@ -133,8 +132,8 @@ namespace project1
             while (runOnce == 0 && End >=0)
             {
                 Console.Clear();
-                totalPrice = totalPrice + playerList[currentSelection].price;
-                budget = budget - playerList[currentSelection].price;
+                totalPrice = totalPrice + playerList[(0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8)].price;
+                budget = budget - playerList[(0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8)].price;
                 newBudget = budget;
                 if (newBudget <= 0)
                 {
@@ -144,14 +143,14 @@ namespace project1
 
                 if (runOnce == 0)
                 {
-                    verifyInts.Add(currentSelection);
+                    verifyInts.Add((0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8));
                     usedOptions.Add(currentSelection);
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("\n\n\t\tYou have selected " + playerList[currentSelection].name +
+                    Console.WriteLine("\n\n\t\tYou have selected " + playerList[(0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8)].name +
                                       ", has a salary of: " +
-                                      playerList[currentSelection].price.ToString("C") + " from " +
-                                      playerList[currentSelection].school);
+                                      playerList[(0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8)].price.ToString("C") + " from " +
+                                      playerList[(0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8)].school);
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("\n\t\tYour remaining budget is " + (newBudget).ToString("C") +
                                       " and you can pick " +
@@ -368,7 +367,7 @@ namespace project1
             End = -1;
             Console.Clear();
             Console.WriteLine("Here are your Selected players for your draft");
-            if (newBudget >= (95000000 - 65000000) && (playerList[currentSelection].pick == "1" || playerList[currentSelection].pick == "2" || playerList[currentSelection].pick == "3"))
+            if (newBudget >= (95000000 - 65000000) && (playerList[(0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8)].pick == "1" || playerList[(0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8)].pick == "2" || playerList[(0 + ((currentSelection / 5) % 8)) + (currentSelection % 5 * 8)].pick == "3"))
             {
                 Console.WriteLine("\nGreat job your selection is cost effective");
             }
